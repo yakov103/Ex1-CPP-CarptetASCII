@@ -57,6 +57,8 @@ namespace ariel
         }
     }
 
+    
+
     string mat(int width, int height, char first, char second)
     {
         if (width * height % 2 == 0)
@@ -69,18 +71,15 @@ namespace ariel
         int temp = width;
         width = height;
         height = temp;
-        char **Matrix = NULL;
+        char **Matrix;
         Matrix = new char *[width];
 
         allocate_mat(Matrix, width, height);
         fill_second_char(Matrix, width, height, second);
         fill_first_char(Matrix, width, height, first);
         print_mat(Matrix, width, height);
-
-        for (int i = 0; i < width; i++)
-        {
-            delete [] Matrix[i];
-        }
+        
+        delete [] Matrix[0];
         delete [] Matrix;
 
         return "";
