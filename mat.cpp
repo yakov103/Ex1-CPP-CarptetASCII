@@ -46,6 +46,11 @@ namespace ariel
         }
     }
 
+/*
+i used allocation using this site 
+https://stackoverflow.com/questions/7684712/2d-matrix-allocation-on-heap-in-c
+*/ 
+
     void allocate_mat(char **mat, int width, int height)
     {
         char *MAT_DATA = new char[width * height];
@@ -72,11 +77,9 @@ namespace ariel
 
     }
 
-    
-
-    string mat(int width, int height, char first, char second)
+    void checkErrors (int width, int height, char first, char second)
     {
-        if (width * height % 2 == 0 )
+          if (width * height % 2 == 0 )
         {
             throw runtime_error("carpet shoud be odd ! ");
            
@@ -90,18 +93,36 @@ namespace ariel
         if (width < 0 || height < 0 ){ 
             throw runtime_error("you cannot use negative numbers !"); 
         }
+    }
 
+    void freeMatrix (char **mat)
+    { 
+        delete [] mat[0];
+        delete [] mat;
+    }
 
+    
 
+    string mat(int width, int height, char first, char second)
+    {
+
+        checkErrors(width,height,first,second); 
+
+        //mem allocation 
         char **Matrix;
         Matrix = new char *[width];
-
         allocate_mat(Matrix, height, width);
+
+        //fill matrix 
         fill_second_char(Matrix, height, width, second);
         fill_first_char(Matrix, height, width, first);
+
+        //marix to string 
         string resulat = make_carpet(Matrix,height, width);
-        delete [] Matrix[0];
-        delete [] Matrix;
+
+        freeMatrix(Matrix);
+        //delete [] Matrix[0];
+        //delete [] Matrix;
 
         return resulat;
     }
