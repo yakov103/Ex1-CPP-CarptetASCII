@@ -18,20 +18,25 @@ namespace ariel
     void fill_first_char(char **mat, int width, int height, char sign)
     {
         int p = 0, q = 0;
+        bool flag = true ;
         while (p < width / 2 || q < height / 2)
         {
-            for (int i = p; i < width - p; i++)
+            for (int i = p; i < width - p && p < height; i++)
             {
                 mat[i][q] = sign;
                 mat[i][height - q - 1] = sign;
             }
-            for (int i = q; i < height - q; i++)
+            for (int i = q; i < height - q  && q < width; i++)
             {
+
                 mat[p][i] = sign;
                 mat[width - p - 1][i] = sign;
             }
             p += 2;
             q += 2;
+        }
+        if(width == height && width % 4 == 1){
+            mat[width/2][width/2]=sign;
         }
     }
 
@@ -73,6 +78,11 @@ namespace ariel
         if (first == second){ 
             throw runtime_error("the same char "); 
         }
+        if (first < 33 || second < 33 ){ 
+            throw runtime_error("invalid char"); 
+        }
+
+
         int temp = width;
         width = height;
         height = temp;
