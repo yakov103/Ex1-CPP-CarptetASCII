@@ -32,6 +32,7 @@ int main()
 	@@@@@@@@@@@@@
 	*/
 	cout << ariel::mat(5, 5, '@', '-') << endl;
+	
 	try
 	{
 		cout << ariel::mat(10, 5, '$', '%') << endl; // Exception - not a valid code

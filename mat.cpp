@@ -15,6 +15,12 @@ namespace ariel
         }
     }
 
+
+
+    /* 
+    https://codegolf.stackexchange.com/questions/241219/mat-printing-matrix 
+    */ 
+
     void fill_first_char(char **mat, int width, int height, char sign)
     {
         int p = 0, q = 0;
@@ -80,6 +86,9 @@ namespace ariel
         }
         if (first < 33 || second < 33 ){ 
             throw runtime_error("invalid char"); 
+        }
+        if (width < 0 || height < 0 ){ 
+            throw runtime_error("you cannot use negative numbers !"); 
         }
 
 
