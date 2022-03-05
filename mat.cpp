@@ -38,35 +38,40 @@ namespace ariel
     void allocate_mat(char **mat, int width, int height)
     {
         char *MAT_DATA = new char[width * height];
-
+        cout << "size is " << width *height << endl ; 
         for (int i = 0; i < width; i++)
         {
             mat[i] = MAT_DATA + i * height;
         }
     }
 
-    void print_mat(char **mat, int width, int height)
-    {
-        for (int i = 0; i < width; i++)
+
+    string make_carpet(char **mat , int width , int height )
+    { 
+    string t ="" ; 
+   for (int i = 0; i < width; i++)
         {
             for (int j = 0; j < height; j++)
             {
-                cout << mat[i][j];
+                t = t + mat[i][j]; 
             }
-            cout << endl;
+            t = t + "\n";
         }
+    return t ; 
+
     }
 
     
 
     string mat(int width, int height, char first, char second)
     {
-        if (width * height % 2 == 0)
+        if (width * height % 2 == 0 )
         {
-
-            throw;
-
-            // return "";
+            throw runtime_error("carpet shoud be odd ! ");
+           
+        }
+        if (first == second){ 
+            throw runtime_error("the same char "); 
         }
         int temp = width;
         width = height;
@@ -77,11 +82,10 @@ namespace ariel
         allocate_mat(Matrix, width, height);
         fill_second_char(Matrix, width, height, second);
         fill_first_char(Matrix, width, height, first);
-        print_mat(Matrix, width, height);
-        
+        string resulat = make_carpet(Matrix,width,height);
         delete [] Matrix[0];
         delete [] Matrix;
 
-        return "";
+        return resulat;
     }
 }
