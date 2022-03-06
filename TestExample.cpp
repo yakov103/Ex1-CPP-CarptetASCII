@@ -21,33 +21,29 @@ using namespace std;
  * Returns the input string without the whitespace characters: space, newline and tab.
  * Requires std=c++2a.
  */
-// string nospaces(string input) {
-// 	std::erase(input, ' ');
-// 	std::erase(input, '\t');
-// 	std::erase(input, '\n');
-// 	std::erase(input, '\r');
-// 	return input;
-// }
-string nospaces(string str)
-{
-    str.erase(remove(str.begin(), str.end(), ' '), str.end());
-	str.erase(remove(str.begin(), str.end(), '\n'), str.end());
-    return str;
+string nospaces(string input) {
+	std::erase(input, ' ');
+	std::erase(input, '\t');
+	std::erase(input, '\n');
+	std::erase(input, '\r');
+	return input;
 }
- 
 
 
 TEST_CASE("Good input") {
-	CHECK(nospaces(mat(9, 7, '@', '-')) == nospaces("@@@@@@@@@\n@-------@\n@-@@@@@-@\n@-@---@-@\n@-@@@@@-@\n@-------@\n@@@@@@@@@"));
-	
+	CHECK(nospaces(mat(9, 7, '@', '-')) == nospaces("@@@@@@@@@\n
+													 @-------@\n
+													 @-@@@@@-@\n
+													 @-@---@-@\n
+													 @-@@@@@-@\n
+													 @-------@\n
+													 @@@@@@@@@"));
 	/* Add more test here */
 }
 
 TEST_CASE("Bad input") {
-    CHECK_THROWS(mat(10, 5, '$', '%'));// only odd number 
-	CHECK_THROWS(mat(7,5,'@','@'));  // cannot use the same sign 
-
-
+    CHECK_THROWS(mat(10, 5, '$', '%'));
+    /* Add more test here */
 }
 
 

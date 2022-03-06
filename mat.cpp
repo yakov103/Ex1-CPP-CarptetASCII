@@ -1,84 +1,16 @@
 #include <iostream>
 #include "mat.hpp"
+
 using namespace std;
+constexpr unsigned int MINASCII = 33;
 namespace ariel
 {
 
-    void fill_second_char(char **mat, int width, int height, char sign)
-    {
-        for (int i = 0; i < width; i++)
-        {
-            for (int j = 0; j < height; j++)
-            {
-                mat[i][j] = sign;
-            }
-        }
-    }
 
-
-
-    /* 
-    https://codegolf.stackexchange.com/questions/241219/mat-printing-matrix 
-    */ 
-
-    void fill_first_char(char **mat, int width, int height, char sign)
-    {
-        int p = 0, q = 0;
-        bool flag = true ;
-        while (p < width / 2 || q < height / 2)
-        {
-            for (int i = p; i < width - p && p < height; i++)
-            {
-                mat[i][q] = sign;
-                mat[i][height - q - 1] = sign;
-            }
-            for (int i = q; i < height - q  && q < width; i++)
-            {
-
-                mat[p][i] = sign;
-                mat[width - p - 1][i] = sign;
-            }
-            p += 2;
-            q += 2;
-        }
-        if(width == height && width % 4 == 1){
-            mat[width/2][width/2]=sign;
-        }
-    }
-
-/*
-i used allocation using this site 
-https://stackoverflow.com/questions/7684712/2d-matrix-allocation-on-heap-in-c
-*/ 
-
-    void allocate_mat(char **mat, int width, int height)
-    {
-        char *MAT_DATA = new char[width * height];
-        cout << "size is " << width *height << endl ; 
-        for (int i = 0; i < width; i++)
-        {
-            mat[i] = MAT_DATA + i * height;
-        }
-    }
-
-
-    string make_carpet(char **mat , int width , int height )
-    { 
-    string t ="" ; 
-   for (int i = 0; i < width; i++)
-        {
-            for (int j = 0; j < height; j++)
-            {
-                t = t + mat[i][j]; 
-            }
-            t = t + "\n";
-        }
-    return t ; 
-
-    }
 
     void checkErrors (int width, int height, char first, char second)
     {
+
           if (width * height % 2 == 0 )
         {
             throw runtime_error("carpet shoud be odd ! ");
@@ -87,7 +19,7 @@ https://stackoverflow.com/questions/7684712/2d-matrix-allocation-on-heap-in-c
         if (first == second){ 
             throw runtime_error("the same char "); 
         }
-        if (first < 33 || second < 33 ){ 
+        if (first < MINASCII || second < MINASCII ){ 
             throw runtime_error("invalid char"); 
         }
         if (width < 0 || height < 0 ){ 
@@ -95,35 +27,41 @@ https://stackoverflow.com/questions/7684712/2d-matrix-allocation-on-heap-in-c
         }
     }
 
-    void freeMatrix (char **mat)
-    { 
-        delete [] mat[0];
-        delete [] mat;
-    }
-
-    
-
     string mat(int width, int height, char first, char second)
     {
 
         checkErrors(width,height,first,second); 
 
-        //mem allocation 
-        char **Matrix;
-        Matrix = new char *[width];
-        allocate_mat(Matrix, height, width);
+        string res;
+        res="";
+        for ( int i = 0 ; i < height ; i ++){
+            for (int j = 0 ; j < width ; j ++){
+                res +=second;
+            }
+           res += '\n';
+        }
 
-        //fill matrix 
-        fill_second_char(Matrix, height, width, second);
-        fill_first_char(Matrix, height, width, first);
+        int p = 0 ;  
+        int q = 0 ;
 
-        //marix to string 
-        string resulat = make_carpet(Matrix,height, width);
+        while ( p < height /2 || q < width /2) {
+            for ( int i = p ; i < height-p && p < height; i ++ ){
+                res[i*(width+1)+q]=first;
+                res[i*(width+1)+(width -q -1)]=first;
+            }
+            for (int i = q ; i < width - q  && q < width; i++) {
+                res[(p*(width+1)) + i ] = first;
+                res[((height-1-p)*(width+1)) + i]= first;
+            }
 
-        freeMatrix(Matrix);
-        //delete [] Matrix[0];
-        //delete [] Matrix;
-
-        return resulat;
+            p+=2;
+            q+=2;
+        }
+        if(width == height && width % 4 == 1){
+            res[width/2*(width+1)+width/2]=first;
+        }
+    
+         
+        return res;
     }
 }
