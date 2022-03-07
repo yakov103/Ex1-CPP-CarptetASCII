@@ -2,9 +2,17 @@
 #include "mat.hpp"
 
 using namespace std;
-constexpr unsigned int MINASCII = 33;
 namespace ariel
 {
+    string printMat (int width, int height, char first, char second) ;
+    void checkErrors (int width, int height, char first, char second);
+
+    string mat(int width, int height, char first, char second)
+    {
+        checkErrors(width,height,first,second); 
+        return printMat(width,height,first,second); 
+    }
+
 
 
 
@@ -20,11 +28,8 @@ namespace ariel
         }
     }
 
-    string mat(int width, int height, char first, char second)
-    {
+    string printMat (int width, int height, char first, char second) { 
 
-        checkErrors(width,height,first,second); 
-        
         string res;
         if (width == 1 ){ 
             for (int i = 0 ; i < height ; i++){ 
@@ -65,8 +70,9 @@ namespace ariel
         if(width == height && width % 4 == 1){
             res[width/2*(width+1)+width/2]=first;
         }
-    
-         
         return res;
+
     }
+
+    
 }
