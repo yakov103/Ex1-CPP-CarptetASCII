@@ -10,7 +10,7 @@ namespace ariel
     string mat(int width, int height, char first, char second)
     {
         checkErrors(width,height,first,second); 
-        return printMat(width,height,first,second); 
+        return printMat(width,height, first , second); 
     }
 
 
