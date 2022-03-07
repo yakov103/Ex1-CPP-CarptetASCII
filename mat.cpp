@@ -24,8 +24,20 @@ namespace ariel
     {
 
         checkErrors(width,height,first,second); 
-
+        
         string res;
+        if (width == 1 ){ 
+            for (int i = 0 ; i < height ; i++){ 
+                res += first ;
+            }
+            return res;
+        }
+        if (height == 1 ){ 
+            for (int i = 0 ; i < width ; i++){ 
+                res += first ;
+            }
+            return res;
+        }
         res="";
         for ( int i = 0 ; i < height ; i ++){
             for (int j = 0 ; j < width ; j ++){
