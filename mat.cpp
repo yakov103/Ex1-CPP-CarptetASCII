@@ -14,13 +14,6 @@ namespace ariel
           if (width * height % 2 == 0 )
         {
             throw runtime_error("carpet shoud be odd ! ");
-           
-        }
-        if (first == second){ 
-            throw runtime_error("the same char "); 
-        }
-        if (first < MINASCII || second < MINASCII ){ 
-            throw runtime_error("invalid char"); 
         }
         if (width < 0 || height < 0 ){ 
             throw runtime_error("you cannot use negative numbers !"); 
