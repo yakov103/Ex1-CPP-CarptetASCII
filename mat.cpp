@@ -31,6 +31,7 @@ namespace ariel
     string printMat (int width, int height, char first, char second) { 
 
         string res;
+        res="";
         if (width == 1 ){ 
             for (int i = 0 ; i < height ; i++){ 
                 res += first ;
@@ -43,7 +44,7 @@ namespace ariel
             }
             return res;
         }
-        res="";
+        
         for ( int i = 0 ; i < height ; i ++){
             for (int j = 0 ; j < width ; j ++){
                 res +=second;
